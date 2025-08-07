@@ -14,9 +14,10 @@ router.post("/verifyotp",verifyOtp);
 
 //Google auth 
 router.get('/google', passport.authenticate('google', {scope: ['profile', 'email']}))
-router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
+router.get('/google/callback', passport.authenticate('google', { failureMessage:"denied access" }), (req, res) => {
   // Successful authentication, redirect to the home page or dashboard.
-  res.redirect('/home');
+  res.status(200).json({message:"login success",user:req.user});
+  
 });
 
 
