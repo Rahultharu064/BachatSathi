@@ -1,7 +1,7 @@
 
 import express from "express"
 import passport from "../config/passport.js"
-import { Userregister, loginUser,sendOtp,verifyOtp} from "../controllers/authController.js"
+import { Userregister, loginUser,sendOtp,verifyOtp,resendOtp} from "../controllers/authController.js"
 import { authenticatemiddleware } from "../midddlewares/authMiddleware.js"
 import { ipWhitelistMiddleware, loginRateLimiter} from "../midddlewares/rateLimiter.js"
 
@@ -11,6 +11,7 @@ router.post("/signup",Userregister);
 router.post('/login',ipWhitelistMiddleware,loginRateLimiter,loginUser);
 router.post("/sendotp",sendOtp);
 router.post("/verifyotp",verifyOtp);
+router.post("/resendotp",resendOtp);
 
 //Google auth 
 router.get('/google', passport.authenticate('google', {scope: ['profile', 'email']}))

@@ -19,7 +19,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use("/api/auth/user",authRoutes)
+app.use("/api/auth",authRoutes)
   
 
 export default app;
