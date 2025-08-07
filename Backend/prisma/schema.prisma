@@ -18,31 +18,34 @@ datasource db {
 
 model User {
   id        Int      @id @default(autoincrement())
-  name      String
   email     String   @unique
   password  String
-  role      String   @default("USER")
-  otp       String?
-  
-  otpExpiry DateTime?
+  name      String
+  role      Role
+  oTP       OTP?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
 }
-
 
 model Admin {
-  id       String   @id @default(uuid())
-  username String   @unique
- secretCode   String?  // For admin only
-  password String
-  email    String   @unique
-  role   Role  @default(ADMIN)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         Int      @id @default(autoincrement())
+  email      String   @unique
+  password   String
+  secretCode String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
-  enum Role {
-  USER
-  ADMIN
-  VENDOR
-  }
+
+model OTP {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int      @unique
+  otp       String
+  expiresAt DateTime
+}
+
+enum Role {
+  User
+  Vendor
+  Admin
+}
