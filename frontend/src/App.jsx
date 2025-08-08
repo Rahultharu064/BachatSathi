@@ -38,18 +38,8 @@ const App = () => {
   ])
   return (
    <>
-   <BrowserRouter>
-   <Routes>
-    <Route path="/" element={<HamroKistaHomepage />}/>
-    <Route path="/home" element={<HamroSaveDashboard />}/>
-    <Route path='/login' element={<Login />} />
-    <Route path='/register' element={<Register />} />
-    <Route path="/otp-login" element={<OtpLogin />} />
-     <Route path="/dashboard" element={<Dashboard />} />
-   </Routes>
-  
-   </BrowserRouter>
-   
+   <RouterProvider router={router} />
+   <Toaster   position="middle" />
    </>
   )
 }
