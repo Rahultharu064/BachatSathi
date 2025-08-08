@@ -6,9 +6,11 @@ import RegisterPage from './Components/Form/RegisterPage'
 import LoginPage from './Components/Form/LoginPage'
 import ForgotPasswordPage from './Components/Form/ForgotPasswordPage'
 import HamroSaveDashboard from './Components/Userdashboard/HamroSaveDashboard'
-
-
-
+import { LogIn } from 'lucide-react'
+import Login from './Components/Form/Login'
+import Register from './Components/Form/Register'
+import OtpLogin from './Components/Form/OtpLogin'
+import Dashboard from './Components/ADashboard/Dashboard'
 
 const App = () => {
 
@@ -35,10 +37,20 @@ const App = () => {
     }
   ])
   return (
-    <>
-    <RouterProvider router={router} />
-    <Toaster position="top-center" />
-    </>
+   <>
+   <BrowserRouter>
+   <Routes>
+    <Route path="/" element={<HamroKistaHomepage />}/>
+    <Route path="/home" element={<HamroSaveDashboard />}/>
+    <Route path='/login' element={<Login />} />
+    <Route path='/register' element={<Register />} />
+    <Route path="/otp-login" element={<OtpLogin />} />
+     <Route path="/dashboard" element={<Dashboard />} />
+   </Routes>
+  
+   </BrowserRouter>
+   
+   </>
   )
 }
 
