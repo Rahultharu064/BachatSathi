@@ -1,13 +1,21 @@
 import jwt from 'jsonwebtoken';
 
-export const signToken = (payload)=>{
-    return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "3days"});
-
+const resolveSecret = () => {
+  const secret = process.env.JWT_SECRET || (process.env.NODE_ENV !== 'production' ? 'dev_secret' : undefined);
+  if (!secret) {
+    throw new Error('JWT_SECRET is not set');
+  }
+  return secret;
 };
 
+export const signToken = (payload) => {
+  const secret = resolveSecret();
+  return jwt.sign(payload, secret, { expiresIn: '3days' });
+};
 
 export const verifyToken = (token) => {
-  return jwt.verify(token, process.env.JWT_SECRET);
+  const secret = resolveSecret();
+  return jwt.verify(token, secret);
 };
 
 

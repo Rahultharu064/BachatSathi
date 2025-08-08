@@ -1,20 +1,44 @@
 import React from 'react'
-import { BrowserRouter,Routes,Route } from 'react-router-dom'
-import HamroKistaHomepage from './HamroKistaHomepage'
+import { Toaster } from 'react-hot-toast'
+import {createBrowserRouter , RouterProvider} from 'react-router-dom'
+import  HamroKistaHomepage from  "./HamroKistaHomepage"
+import RegisterPage from './Components/Form/RegisterPage'
+import LoginPage from './Components/Form/LoginPage'
+import ForgotPasswordPage from './Components/Form/ForgotPasswordPage'
 import HamroSaveDashboard from './Components/Userdashboard/HamroSaveDashboard'
 
+
+
+
 const App = () => {
+
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <HamroKistaHomepage />
+    },
+    {
+      path: "/register",
+      element: <RegisterPage />
+    },
+    {
+      path: "/login",
+      element: <LoginPage />
+    },
+    {
+      path: "/forgot-password",
+      element: <ForgotPasswordPage />
+    },
+    {
+      path:"/User-dashboard",
+      element: < HamroSaveDashboard />
+    }
+  ])
   return (
-   <>
-   <BrowserRouter>
-   <Routes>
-    <Route path="/" element={<HamroKistaHomepage />}/>
-    <Route path="/home" element={<HamroSaveDashboard />}/>
-   </Routes>
-  
-   </BrowserRouter>
-   
-   </>
+    <>
+    <RouterProvider router={router} />
+    <Toaster position="top-center" />
+    </>
   )
 }
 

@@ -1,7 +1,6 @@
 import passport from 'passport';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import prisma from './db.js';
-import { signToken } from '../utils/jwt.js';
 
 passport.use(
   new GoogleStrategy(
@@ -12,16 +11,18 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
-        const email = profile.emails[0].value;
+        const email = String(profile.emails?.[0]?.value || '').trim().toLowerCase();
+        if (!email) return done(new Error('Google account has no email'), null);
 
         let user = await prisma.user.findUnique({ where: { email } });
 
         if (!user) {
+          // Store empty password so normal login clearly redirects to Google sign-in
           user = await prisma.user.create({
             data: {
               email,
-              name: profile.displayName,
-              password: '', // No password for Google accounts
+              name: profile.displayName || 'Google User',
+              password: '',
               role: 'User',
             },
           });
@@ -29,6 +30,7 @@ passport.use(
 
         return done(null, user);
       } catch (error) {
+        console.error('Google OAuth error:', error);
         return done(error, null);
       }
     }
