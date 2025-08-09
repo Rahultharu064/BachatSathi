@@ -7,10 +7,9 @@ import LoginPage from './Components/Form/LoginPage'
 import ForgotPasswordPage from './Components/Form/ForgotPasswordPage'
 import HamroSaveDashboard from './Components/Userdashboard/HamroSaveDashboard'
 import { LogIn } from 'lucide-react'
-import Login from './Components/Form/Login'
-import Register from './Components/Form/Register'
 import OtpLogin from './Components/Form/OtpLogin'
 import Dashboard from './Components/ADashboard/Dashboard'
+import ProfilePage from './Components/Userdashboard/profile/ProfilePage'
 
 const App = () => {
 
@@ -34,6 +33,10 @@ const App = () => {
     {
       path:"/User-dashboard",
       element: < HamroSaveDashboard />
+    },
+    {
+      path:"/profile",
+      element: <ProfilePage />
     }
   ])
   return (
